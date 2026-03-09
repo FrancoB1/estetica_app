@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 16px;
+            background: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 12px;
+        }
+        .dia {
+            margin-bottom: 20px;
+        }
+        .turno {
+            background: white;
+            border-left: 6px solid gray;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+        }
+        .pendiente { border-color: orange; }
+        .confirmado { border-color: green; }
+        .cancelado { border-color: red; }
+        .finalizado { border-color: blue; }
+    </style>
+
+<body>
+
+<h1>
+    Agenda semanal<br>
+    <small>{{ inicio_semana }} → {{ fin_semana }}</small>
+</h1>
+
+{% for fecha, turnos in turnos_por_dia.items %}
+    <div class="dia">
+        <h3>{{ fecha }}</h3>
+
+        {% for turno in turnos %}
+            <div class="turno {{ turno.estado }}">
+                <strong>{{ turno.hora_inicio }} – {{ turno.hora_fin }}</strong><br>
+                {{ turno.cliente_nombre }} {{ turno.cliente_apellido }}
+
+                <ul>
+                    {% for sp in turno.servicios_prestados.all %}
+                        <li>{{ sp.servicio.nombre }} — {{ sp.empleado }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% empty %}
+    <p>No hay turnos esta semana.</p>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Sistema Estética</title>
+
+<style>
+
+/* ---------- BASE ---------- */
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    padding-bottom:80px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:16px;
+}
+
+/* ---------- TARJETAS ---------- */
+
+.card{
+    background:white;
+    padding:16px;
+    border-radius:10px;
+    margin-bottom:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ---------- BOTONES ---------- */
+
+.btn{
+    display:block;
+    padding:14px;
+    margin-bottom:12px;
+    text-align:center;
+    border-radius:8px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+.verde{ background:#4CAF50; }
+.azul{ background:#2196F3; }
+.violeta{ background:#9C27B0; }
+.naranja{ background:#FF9800; }
+
+/* ---------- FORMULARIOS ---------- */
+
+form{
+    background:white;
+    padding:18px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom:20px;
+}
+
+form label{
+    display:block;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+form input,
+form select,
+form textarea{
+    width:100%;
+    padding:10px;
+    margin-top:4px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+form button{
+    margin-top:14px;
+    padding:12px;
+    width:100%;
+    background:#2196F3;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ---------- AGENDA PROFESIONAL ---------- */
+
+.agenda{
+    display:flex;
+    flex-direction:column;
+}
+
+.linea-hora{
+    display:flex;
+    border-bottom:1px solid #eee;
+    min-height:60px;
+}
+
+.hora{
+    width:70px;
+    text-align:right;
+    padding-right:10px;
+    font-size:13px;
+    color:#666;
+}
+
+.bloque{
+    flex:1;
+    padding-left:10px;
+    position:relative;
+}
+
+.turno{
+    background:white;
+    border-radius:8px;
+    padding:10px;
+    margin-bottom:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ---------- ESTADOS ---------- */
+
+.turno.confirmado{
+    border-left:6px solid #4CAF50;
+}
+
+.turno.pendiente{
+    border-left:6px solid orange;
+}
+
+.turno.cancelado{
+    border-left:6px solid red;
+}
+
+.turno.finalizado{
+    border-left:6px solid #2196F3;
+}
+
+/* ---------- ETIQUETAS ---------- */
+
+.estado{
+    font-size:12px;
+    font-weight:bold;
+}
+
+.estado.confirmado{ color:#4CAF50; }
+.estado.pendiente{ color:orange; }
+.estado.cancelado{ color:red; }
+.estado.finalizado{ color:#2196F3; }
+
+/* ---------- BARRA INFERIOR ---------- */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:60px;
+    background:white;
+    border-top:1px solid #ddd;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#444;
+    font-size:13px;
+    text-align:center;
+}
+
+.bottom-nav a div{
+    font-size:20px;
+}
+
+.bottom-nav a.active{
+    color:#2196F3;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="{% url 'panel_empleado' %}"
+class="{% if request.resolver_match.url_name == 'panel_empleado' %}active{% endif %}">
+<div>🏠</div>
+Panel
+</a>
+
+<a href="{% url 'agenda_dia' %}"
+class="{% if request.resolver_match.url_name == 'agenda_dia' %}active{% endif %}">
+<div>📅</div>
+Agenda
+</a>
+
+<a href="{% url 'turno_nuevo' %}"
+class="{% if request.resolver_match.url_name == 'turno_nuevo' %}active{% endif %}">
+<div>➕</div>
+Turno
+</a>
+
+<a href="{% url 'disponibilidad_empleado' %}"
+class="{% if request.resolver_match.url_name == 'disponibilidad_empleado' %}active{% endif %}">
+<div>⏰</div>
+Dispon.
+</a>
+
+<a href="{% url 'resumen_empleado_hoy' %}"
+class="{% if request.resolver_match.url_name == 'resumen_empleado_hoy' %}active{% endif %}">
+<div>💰</div>
+Caja
+</a>
+
+</div>
+
+</body>
+</html>

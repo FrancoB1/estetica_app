@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Mi Disponibilidad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body { font-family: Arial, sans-serif; background:#fafafa; margin:0; }
+        .container { max-width:600px; margin:auto; padding:20px; }
+        .card {
+            background:white;
+            padding:15px;
+            border-radius:10px;
+            margin-bottom:15px;
+            box-shadow:0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn {
+            display:block;
+            padding:15px;
+            margin-bottom:12px;
+            text-align:center;
+            border-radius:8px;
+            text-decoration:none;
+            color:white;
+            font-weight:bold;
+        }
+        .verde { background:#4CAF50; }
+        .gris { background:#607D8B; }
+        .editar { color:#2196F3; font-weight:bold; text-decoration:none; }
+        .eliminar { color:#f44336; font-weight:bold; text-decoration:none; margin-left:15px; }
+    </style>
+
+<body>
+
+<div class="container">
+
+    <h2 style="text-align:center;">Mi Disponibilidad</h2>
+
+    <a href="{% url 'panel_empleado' %}" class="btn gris">
+        ← Volver al Panel
+    </a>
+
+    <a href="{% url 'crear_disponibilidad_empleado' %}" class="btn verde">
+        ➕ Nueva disponibilidad
+    </a>
+
+    <hr>
+
+    {% if disponibilidades %}
+        {% for d in disponibilidades %}
+            <div class="card">
+                <strong>{{ d.fecha }}</strong><br>
+                {{ d.hora_inicio }} - {{ d.hora_fin }}
+
+                <br><br>
+
+                <a href="{% url 'editar_disponibilidad_empleado' d.pk %}" class="editar">
+                    ✏️ Editar
+                </a>
+
+                <a href="{% url 'eliminar_disponibilidad_empleado' d.pk %}" class="eliminar">
+                    🗑 Eliminar
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No tienes disponibilidades cargadas.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

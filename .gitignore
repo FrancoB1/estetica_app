@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entorno virtual
+venv/
+.env
+.venv/
+
+# Base de datos
+db.sqlite3
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# PyCharm
+.idea/
+
+# Archivos temporales
+*.log
+*.pot
+*.tmp
+
+# Archivos de migraciones compiladas
+*/migrations/__pycache__/
+
+# Archivos de entorno
+.env.*
+
+# Static build
+staticfiles/

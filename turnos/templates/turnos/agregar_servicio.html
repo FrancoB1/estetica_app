@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Agregar servicio</h1>
+
+<p>
+    Turno:
+    <strong>
+        {{ turno.cliente_nombre }} {{ turno.cliente_apellido }}
+        ({{ turno.hora_inicio }} – {{ turno.hora_fin }})
+    </strong>
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar servicio</button>
+</form>
+
+<br>
+<a href="{% url 'agenda_dia' %}">← Volver a la agenda</a>
+
+{% endblock %}

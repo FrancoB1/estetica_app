@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Eliminar Disponibilidad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; background:#fafafa; margin:0; }
+        .container { max-width:600px; margin:auto; padding:20px; }
+        .card {
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 6px rgba(0,0,0,0.05);
+        }
+        button {
+            width:100%;
+            padding:15px;
+            background:#f44336;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+        .volver {
+            display:block;
+            text-align:center;
+            margin-bottom:15px;
+            text-decoration:none;
+            color:#607D8B;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2 style="text-align:center;">Eliminar Disponibilidad</h2>
+
+    <a href="{% url 'disponibilidad_empleado' %}" class="volver">
+        ← Cancelar
+    </a>
+
+    <div class="card">
+        <p>
+            ¿Seguro que deseas eliminar la disponibilidad del
+            <strong>{{ disponibilidad.fecha }}</strong>
+            ({{ disponibilidad.hora_inicio }} - {{ disponibilidad.hora_fin }})?
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">
+                Confirmar Eliminación
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

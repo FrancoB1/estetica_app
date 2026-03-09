@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Agenda del {{ fecha }}</h1>
+
+<form method="get">
+<input type="date" name="fecha" value="{{ fecha }}">
+<button type="submit">Ver</button>
+</form>
+
+<div class="agenda">
+
+{% for hora in horas %}
+
+<div class="linea-hora">
+
+<div class="hora">
+{{ hora }}
+</div>
+
+<div class="bloque">
+
+{% for turno in turnos %}
+{% if turno.hora_inicio|time:"H:i" == hora %}
+
+<div class="turno {{ turno.estado }}">
+
+<strong>
+{{ turno.cliente_nombre }} {{ turno.cliente_apellido }}
+</strong>
+
+<div class="estado {{ turno.estado }}">
+
+{% if turno.estado == "confirmado" %} 🟢 Confirmado {% endif %}
+{% if turno.estado == "pendiente" %} 🟠 Pendiente {% endif %}
+{% if turno.estado == "cancelado" %} 🔴 Cancelado {% endif %}
+{% if turno.estado == "finalizado" %} 🔵 Finalizado {% endif %}
+
+</div>
+
+<ul>
+{% for sp in turno.servicios_prestados.all %}
+<li>{{ sp.servicio.nombre }} — {{ sp.empleado }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'agregar_servicio_turno' turno.id %}">
+➕ Agregar servicio
+</a>
+
+</div>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<title>Dashboard Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.valor {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.acciones {
+    margin-top: 30px;
+}
+
+.btn {
+    display: block;
+    padding: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.azul { background: #2196F3; }
+.verde { background: #4CAF50; }
+.violeta { background: #9C27B0; }
+.naranja { background: #FF9800; }
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+</style>
+
+<div class="container">
+
+<h2>Dashboard Admin</h2>
+<p style="text-align:center;">{{ hoy }}</p>
+
+<!-- MÉTRICAS DEL DÍA -->
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Facturado</h3>
+<div class="valor">$ {{ total_facturado }}</div>
+</div>
+
+<div class="card">
+<h3>Comisiones Pagadas</h3>
+<div class="valor">$ {{ total_comisiones }}</div>
+</div>
+
+<div class="card">
+<h3>Ganancia del Local</h3>
+<div class="valor">$ {{ ganancia_local }}</div>
+</div>
+
+<div class="card">
+<h3>Servicios Realizados</h3>
+<div class="valor">{{ total_servicios }}</div>
+</div>
+
+</div>
+
+<!-- RESUMEN DEL DÍA POR EMPLEADO -->
+
+<h3 style="margin-top:30px;">Resumen del día por empleado</h3>
+
+<table>
+
+<tr>
+<th>Empleado</th>
+<th>Servicios</th>
+<th>Total generado</th>
+<th>Comisión</th>
+</tr>
+
+{% for e in resumen_empleados %}
+
+<tr>
+<td>{{ e.nombre }}</td>
+<td>{{ e.servicios }}</td>
+<td>$ {{ e.total }}</td>
+<td>$ {{ e.comision }}</td>
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="4">No hay servicios hoy</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<!-- TURNOS DEL DÍA -->
+
+<h3 style="margin-top:30px;">Turnos de Hoy</h3>
+
+<table>
+
+<tr>
+<th>Hora</th>
+<th>Empleado</th>
+<th>Servicio</th>
+</tr>
+
+{% for turno in turnos_hoy %}
+
+    {% for servicio in turno.servicios_prestados.all %}
+
+    <tr>
+        <td>{{ turno.hora_inicio }}</td>
+        <td>{{ servicio.empleado }}</td>
+        <td>{{ servicio.servicio }}</td>
+    </tr>
+
+    {% endfor %}
+
+{% empty %}
+
+<tr>
+<td colspan="3">No hay turnos hoy</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<!-- ACCIONES -->
+
+<div class="acciones">
+
+<h3>Acciones rápidas</h3>
+
+<a href="/turnos/agenda/" class="btn azul">Agenda del día</a>
+
+<a href="/turnos/agenda/semana/" class="btn verde">Agenda semanal</a>
+
+<a href="/admin/servicios/servicio/" class="btn violeta">Gestionar Servicios</a>
+
+<a href="/admin/usuarios/empleado/" class="btn naranja">Gestionar Empleados</a>
+
+<a href="{% url 'panel_empleado' %}" class="btn violeta">
+👤 Ver panel empleado
+</a>
+
+</div>
+
+</div>
+
+<script>
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
+</script>
+
+{% endblock %}

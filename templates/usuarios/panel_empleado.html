@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 style="text-align:center;">Panel Empleado</h2>
+
+<p style="text-align:center;">
+    Hola <strong>{{ request.user.username }}</strong>
+</p>
+
+<hr>
+
+<div class="card hoy">
+    <h3>Hoy ({{ hoy }})</h3>
+    <p><strong>Total generado:</strong> ${{ total_generado_hoy }}</p>
+    <p><strong>Mi comisión:</strong> ${{ total_comision_hoy }}</p>
+</div>
+
+<div class="card mes">
+    <h3>Mes actual</h3>
+    <p><strong>Total generado:</strong> ${{ total_generado_mes }}</p>
+    <p><strong>Mi comisión:</strong> ${{ total_comision_mes }}</p>
+</div>
+
+<a href="{% url 'turno_nuevo' %}" class="btn verde">
+    ➕ Nuevo turno
+</a>
+
+<a href="{% url 'agenda_dia' %}" class="btn azul">
+    📅 Agenda del día
+</a>
+
+<a href="/turnos/resumen/empleado/" class="btn violeta">
+    📊 Mi resumen de hoy
+</a>
+
+<a href="/turnos/resumen/empleado/mes/" class="btn naranja">
+    📈 Mi resumen del mes
+</a>
+
+<a href="{% url 'disponibilidad_empleado' %}" class="btn" style="background:#795548;">
+    🕒 Mi disponibilidad
+</a>
+<a href="{% url 'panel_admin' %}" class="btn violeta">
+⚙ Panel administrador
+</a>
+
+{% endblock %}

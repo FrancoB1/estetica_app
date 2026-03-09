@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <title>Ingreso</title>
+
+<body>
+    <h2>Ingresar</h2>
+
+    {% if form.errors %}
+        <p style="color:red;">Usuario o contraseña incorrectos</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Entrar</button>
+    </form>
+{% endblock %}

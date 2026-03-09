@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Mi resumen — {{ fecha }}</h2>
+
+{% if servicios %}
+    <ul>
+        {% for sp in servicios %}
+            <li>
+                {{ sp.turno.cliente_nombre }} {{ sp.turno.cliente_apellido }}
+                — {{ sp.servicio.nombre }}
+                — ${{ sp.monto|floatformat:2 }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total del día: ${{ total|floatformat:2 }}</h3>
+{% else %}
+    <p>No hay servicios finalizados hoy.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Nueva Disponibilidad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #607D8B;
+        }
+
+        .errorlist {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+<body>
+
+<div class="container">
+
+    <h2 style="text-align:center;">Nueva Disponibilidad</h2>
+
+    <a href="{% url 'disponibilidad_empleado' %}" class="volver">
+        ← Volver
+    </a>
+
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <label>Fecha</label>
+            {{ form.fecha }}
+
+            <label>Hora inicio</label>
+            {{ form.hora_inicio }}
+
+            <label>Hora fin</label>
+            {{ form.hora_fin }}
+
+            <button type="submit">
+                Guardar Disponibilidad
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

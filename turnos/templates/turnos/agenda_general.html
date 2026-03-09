@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Agenda general — {{ fecha }}</h2>
+
+{% if turnos %}
+    <ul>
+        {% for turno in turnos %}
+            <li>
+                {{ turno.hora_inicio }} - {{ turno.hora_fin }}
+                | {{ turno.cliente_nombre }} {{ turno.cliente_apellido }}
+                | Estado: {{ turno.get_estado_display }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay turnos para hoy.</p>
+{% endif %}
+{% endblock %}
