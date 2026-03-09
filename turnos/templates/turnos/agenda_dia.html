@@ -2,30 +2,51 @@
 
 {% block content %}
 
-
-<h1>Agenda del {{ fecha }}</h1>
+<h2>Agenda — {{ fecha }}</h2>
 
 <form method="get">
 <input type="date" name="fecha" value="{{ fecha }}">
 <button type="submit">Ver</button>
 </form>
 
-<div class="agenda">
 
-{% for hora in horas %}
+<div class="agenda-wrapper">
 
-<div class="linea-hora">
+<div class="timeline">
 
-<div class="hora">
-{{ hora }}
+{% for h in horas %}
+<div class="timeline-hour">{{ h }}</div>
+{% endfor %}
+
 </div>
 
-<div class="bloque">
+
+<div class="agenda-columns">
+
+{% for empleado in empleados %}
+
+<div class="empleado-col"
+onclick="crearTurnoDesdeAgenda(event)">
+
+<div class="empleado-header">
+{{ empleado }}
+</div>
+
 
 {% for turno in turnos %}
-{% if turno.hora_inicio|time:"H:i" == hora %}
 
-<div class="turno {{ turno.estado }}">
+{% for sp in turno.servicios_prestados.all %}
+
+{% if sp.empleado == empleado %}
+
+<div class="turno {{ turno.estado }}"
+draggable="true"
+data-id="{{ turno.id }}"
+
+style="
+top: {{ turno.hora_inicio.hour|add:'-8'|mul:120|add:turno.hora_inicio.minute|mul:2 }}px;
+height: {{ turno.hora_fin.hour|add:'-8'|mul:120|add:turno.hora_fin.minute|mul:2 }}px;
+">
 
 <strong>
 {{ turno.cliente_nombre }} {{ turno.cliente_apellido }}
@@ -41,27 +62,29 @@
 </div>
 
 <ul>
-{% for sp in turno.servicios_prestados.all %}
-<li>{{ sp.servicio.nombre }} — {{ sp.empleado }}</li>
+{% for sp2 in turno.servicios_prestados.all %}
+<li>{{ sp2.servicio.nombre }} — {{ sp2.empleado }}</li>
 {% endfor %}
 </ul>
 
 <a href="{% url 'agregar_servicio_turno' turno.id %}">
-➕ Agregar servicio
+➕ Servicio
 </a>
 
 </div>
 
 {% endif %}
+
+{% endfor %}
+
 {% endfor %}
 
 </div>
 
-</div>
-
 {% endfor %}
+
+</div>
 
 </div>
 
 {% endblock %}
-

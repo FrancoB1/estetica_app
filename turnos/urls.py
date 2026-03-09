@@ -49,6 +49,7 @@ urlpatterns = [
         agregar_servicio_turno,
         name='agregar_servicio_turno'
     ),
+path("mover-turno/", views.mover_turno, name="mover_turno"),
 
     # --------------------------------------------------
     # DISPONIBILIDAD

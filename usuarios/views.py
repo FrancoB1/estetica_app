@@ -1,11 +1,12 @@
 from datetime import date
 from decimal import Decimal
 
-from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView
 from django.db.models import Sum, F
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.contrib.auth import logout
 
 from turnos.models import ServicioPrestado, Turno
 
@@ -210,3 +211,7 @@ def home(request):
         return redirect('panel_empleado')
 
     return redirect('login')
+@login_required
+def cerrar_sesion(request):
+    logout(request)
+    return redirect("login")

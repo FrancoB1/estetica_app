@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, F
 from django.views.decorators.cache import never_cache
 
+from usuarios.models import Empleado
+
 from .models import Turno, ServicioPrestado, Disponibilidad
 from .forms import (
     TurnoEmpleadoForm,
@@ -35,17 +37,20 @@ def agenda_dia(request):
     turnos = (
         Turno.objects
         .filter(fecha=fecha)
+        .prefetch_related("servicios_prestados")
         .order_by("hora_inicio")
     )
 
-    horas = [f"{h:02d}:00" for h in range(8, 21)]
+    empleados = Empleado.objects.filter(activo=True)
+
+    horas = [f"{h:02d}:00" for h in range(8, 23)]
 
     return render(request, "turnos/agenda_dia.html", {
         "fecha": fecha,
         "turnos": turnos,
         "horas": horas,
+        "empleados": empleados
     })
-
 
 def agenda_semana(request):
 
@@ -360,3 +365,26 @@ def eliminar_disponibilidad_empleado(request, pk):
     return render(request, "turnos/disponibilidad_confirmar_eliminar.html", {
         "disponibilidad": disponibilidad
     })
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def mover_turno(request):
+
+    if request.method == "POST":
+
+        turno_id = request.POST.get("turno_id")
+        nueva_hora = request.POST.get("hora")
+
+        turno = Turno.objects.get(id=turno_id)
+
+        hora = datetime.strptime(nueva_hora, "%H:%M").time()
+
+        duracion = datetime.combine(date.today(), turno.hora_fin) - datetime.combine(date.today(), turno.hora_inicio)
+
+        turno.hora_inicio = hora
+        turno.hora_fin = (datetime.combine(date.today(), hora) + duracion).time()
+
+        turno.save()
+
+        return JsonResponse({"status": "ok"})

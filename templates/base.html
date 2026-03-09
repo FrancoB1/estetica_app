@@ -2,9 +2,8 @@
 <html>
 <head>
 
-    <link rel="manifest" href="/static/manifest.json">
-    <meta name="theme-color" content="#4CAF50">
-
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Sistema Estética</title>
@@ -14,182 +13,202 @@
 /* ---------- BASE ---------- */
 
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#f5f5f5;
-    padding-bottom:80px;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding-bottom:80px;
 }
 
 .container{
-    max-width:900px;
-    margin:auto;
-    padding:16px;
+max-width:1200px;
+margin:auto;
+padding:16px;
 }
 
 /* ---------- TARJETAS ---------- */
 
 .card{
-    background:white;
-    padding:16px;
-    border-radius:10px;
-    margin-bottom:16px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+background:white;
+padding:16px;
+border-radius:10px;
+margin-bottom:16px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
 /* ---------- BOTONES ---------- */
 
 .btn{
-    display:block;
-    padding:14px;
-    margin-bottom:12px;
-    text-align:center;
-    border-radius:8px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
+display:block;
+padding:14px;
+margin-bottom:12px;
+text-align:center;
+border-radius:8px;
+text-decoration:none;
+color:white;
+font-weight:bold;
 }
 
-.verde{ background:#4CAF50; }
-.azul{ background:#2196F3; }
-.violeta{ background:#9C27B0; }
-.naranja{ background:#FF9800; }
+.verde{background:#4CAF50;}
+.azul{background:#2196F3;}
+.violeta{background:#9C27B0;}
+.naranja{background:#FF9800;}
 
 /* ---------- FORMULARIOS ---------- */
 
 form{
-    background:white;
-    padding:18px;
-    border-radius:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
-    margin-bottom:20px;
+background:white;
+padding:18px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+margin-bottom:20px;
 }
 
 form label{
-    display:block;
-    font-weight:bold;
-    margin-top:12px;
+display:block;
+font-weight:bold;
+margin-top:12px;
 }
 
 form input,
 form select,
 form textarea{
-    width:100%;
-    padding:10px;
-    margin-top:4px;
-    border-radius:6px;
-    border:1px solid #ccc;
-    font-size:16px;
-    box-sizing:border-box;
+width:100%;
+padding:10px;
+margin-top:4px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:16px;
+box-sizing:border-box;
 }
 
 form button{
-    margin-top:14px;
-    padding:12px;
-    width:100%;
-    background:#2196F3;
-    border:none;
-    color:white;
-    font-weight:bold;
-    border-radius:8px;
-    cursor:pointer;
+margin-top:14px;
+padding:12px;
+width:100%;
+background:#2196F3;
+border:none;
+color:white;
+font-weight:bold;
+border-radius:8px;
+cursor:pointer;
 }
 
-/* ---------- AGENDA PROFESIONAL ---------- */
+/* =====================================================
+AGENDA PROFESIONAL CON COLUMNAS POR EMPLEADO
+===================================================== */
 
-.agenda{
-    display:flex;
-    flex-direction:column;
+.agenda-wrapper{
+display:flex;
+overflow-x:auto;
 }
 
-.linea-hora{
-    display:flex;
-    border-bottom:1px solid #eee;
-    min-height:60px;
+.timeline{
+width:70px;
+flex-shrink:0;
+border-right:1px solid #ddd;
+background:#fafafa;
 }
 
-.hora{
-    width:70px;
-    text-align:right;
-    padding-right:10px;
-    font-size:13px;
-    color:#666;
+.timeline-hour{
+height:60px;
+font-size:13px;
+text-align:right;
+padding-right:8px;
+color:#666;
+border-bottom:1px solid #eee;
 }
 
-.bloque{
-    flex:1;
-    padding-left:10px;
-    position:relative;
+.agenda-columns{
+display:flex;
+flex:1;
+min-width:600px;
+}
+
+.empleado-col{
+flex:1;
+border-right:1px solid #ddd;
+position:relative;
+background:
+repeating-linear-gradient(
+to bottom,
+#f7f7f7,
+#f7f7f7 59px,
+#e5e5e5 60px
+);
+height:840px;
+}
+
+.empleado-header{
+text-align:center;
+font-weight:bold;
+padding:8px;
+background:white;
+border-bottom:1px solid #ddd;
+position:sticky;
+top:0;
+z-index:5;
 }
 
 .turno{
-    background:white;
-    border-radius:8px;
-    padding:10px;
-    margin-bottom:6px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+position:absolute;
+left:6px;
+right:6px;
+background:white;
+border-radius:6px;
+padding:6px;
+font-size:13px;
+box-shadow:0 2px 4px rgba(0,0,0,0.15);
 }
 
-/* ---------- ESTADOS ---------- */
-
-.turno.confirmado{
-    border-left:6px solid #4CAF50;
-}
-
-.turno.pendiente{
-    border-left:6px solid orange;
-}
-
-.turno.cancelado{
-    border-left:6px solid red;
-}
-
-.turno.finalizado{
-    border-left:6px solid #2196F3;
-}
-
-/* ---------- ETIQUETAS ---------- */
+.turno.confirmado{border-left:5px solid #4CAF50;}
+.turno.pendiente{border-left:5px solid orange;}
+.turno.cancelado{border-left:5px solid red;}
+.turno.finalizado{border-left:5px solid #2196F3;}
 
 .estado{
-    font-size:12px;
-    font-weight:bold;
+font-size:12px;
+font-weight:bold;
 }
 
-.estado.confirmado{ color:#4CAF50; }
-.estado.pendiente{ color:orange; }
-.estado.cancelado{ color:red; }
-.estado.finalizado{ color:#2196F3; }
+.estado.confirmado{color:#4CAF50;}
+.estado.pendiente{color:orange;}
+.estado.cancelado{color:red;}
+.estado.finalizado{color:#2196F3;}
 
 /* ---------- BARRA INFERIOR ---------- */
 
 .bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:60px;
-    background:white;
-    border-top:1px solid #ddd;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:60px;
+background:white;
+border-top:1px solid #ddd;
+display:flex;
+justify-content:space-around;
+align-items:center;
 }
 
 .bottom-nav a{
-    text-decoration:none;
-    color:#444;
-    font-size:13px;
-    text-align:center;
+text-decoration:none;
+color:#444;
+font-size:13px;
+text-align:center;
 }
 
 .bottom-nav a div{
-    font-size:20px;
+font-size:20px;
 }
 
 .bottom-nav a.active{
-    color:#2196F3;
-    font-weight:bold;
+color:#2196F3;
+font-weight:bold;
 }
 
+    .rojo{
+background:#f44336;
+}
 </style>
 
 </head>
@@ -236,6 +255,85 @@ Caja
 </a>
 
 </div>
+
+
+<script>
+
+/* CREAR TURNO HACIENDO CLICK EN ESPACIO VACIO */
+
+function crearTurnoDesdeAgenda(event){
+
+const columna = event.currentTarget
+const rect = columna.getBoundingClientRect()
+
+const y = event.clientY - rect.top
+
+const minutos = Math.round(y / 2)
+
+const hora = 8 + Math.floor(minutos / 60)
+const minuto = minutos % 60
+
+const horaStr = String(hora).padStart(2,'0')
+const minutoStr = String(minuto).padStart(2,'0')
+
+const horario = `${horaStr}:${minutoStr}`
+
+window.location.href = `/turnos/nuevo/?hora=${horario}`
+
+}
+
+
+/* DRAG & DROP TURNOS */
+
+let turnoArrastrado = null;
+
+document.addEventListener("dragstart", function(e){
+
+if(e.target.classList.contains("turno")){
+turnoArrastrado = e.target
+}
+
+})
+
+document.addEventListener("dragover", function(e){
+e.preventDefault()
+})
+
+document.addEventListener("drop", function(e){
+
+if(!turnoArrastrado) return
+
+const columna = e.target.closest(".empleado-col")
+if(!columna) return
+
+const rect = columna.getBoundingClientRect()
+const y = e.clientY - rect.top
+
+const minutos = Math.round(y / 2)
+
+const hora = 8 + Math.floor(minutos / 60)
+const minuto = minutos % 60
+
+const horaStr = String(hora).padStart(2,'0')
+const minutoStr = String(minuto).padStart(2,'0')
+
+const horario = `${horaStr}:${minutoStr}`
+
+fetch("/turnos/mover-turno/",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`turno_id=${turnoArrastrado.dataset.id}&hora=${horario}`
+})
+.then(res=>res.json())
+.then(data=>{
+location.reload()
+})
+
+})
+
+</script>
 
 </body>
 </html>
