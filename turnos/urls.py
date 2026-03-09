@@ -1,18 +1,5 @@
 from django.urls import path
-from .views import (
-    agenda_dia,
-    agenda_semana,
-    agenda_empleado_hoy,
-    resumen_empleado_hoy,
-    resumen_empleado_mes,
-    crear_turno_empleado,
-    agregar_servicio_turno,
-    disponibilidad_empleado,
-    crear_disponibilidad_empleado,
-    editar_disponibilidad_empleado,
-    eliminar_disponibilidad_empleado,
-)
-from django.urls import path
+
 from .views import (
     agenda_dia,
     agenda_semana,
@@ -28,6 +15,8 @@ from .views import (
 
     resumen_empleado_hoy,
     resumen_empleado_mes,
+
+    mover_turno,
 )
 
 urlpatterns = [
@@ -49,7 +38,12 @@ urlpatterns = [
         agregar_servicio_turno,
         name='agregar_servicio_turno'
     ),
-path("mover-turno/", views.mover_turno, name="mover_turno"),
+
+    path(
+        "mover-turno/",
+        mover_turno,
+        name="mover_turno"
+    ),
 
     # --------------------------------------------------
     # DISPONIBILIDAD
